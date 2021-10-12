@@ -7,8 +7,9 @@ using System.Text;
 using System.Threading.Tasks;
 using WebStore.Domain.Entities;
 using WebStore.Infrastructure.Mapping;
-using WebStore.Services.Interfaces;
+using WebStore.Interfaces.Services;
 using WebStore.Domain.ViewModels;
+using WebStore.Interfaces.Services;
 
 namespace WebStore.Services.InCookies
 {
