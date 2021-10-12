@@ -371,3 +371,11 @@ FodyWeavers.xsd
 **/wwwroot/js/site.min.js.map
 
 **/WebStoreKUSN.db
+
+***/wwwroot/lib
+***/wwwroot/css/site.css
+***/wwwroot/css/site.min.css
+***/wwwroot/js/site.js
+***/wwwroot/js/site.min.js
+***/wwwroot/js/site.min.js.gz
+***/wwwroot/js/site.min.js.map
