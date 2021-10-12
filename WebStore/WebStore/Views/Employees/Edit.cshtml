@@ -1,0 +1,63 @@
+﻿@model WebStore.ViewModels.EmployeeViewModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<div class="container">
+    <h1>Редактирование</h1>
+
+    <h4>Сотрудника</h4>
+    <hr />
+    <div class="row">
+        <div class="col-md-4">
+            <form asp-action="Edit">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    @*<label asp-for="Id" class="control-label"></label>*@
+                    <input asp-for="Id" class="form-control" readonly/>
+                    @*<span asp-validation-for="Id" class="text-danger"></span>*@
+                </div>
+                <div class="form-group">
+                    <label asp-for="Name" class="control-label"></label>
+                    <input asp-for="Name" type="text" class="form-control" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="LastName" class="control-label"></label>
+                    <input asp-for="LastName" type="text" class="form-control" />
+                    <span asp-validation-for="LastName" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Patronymic" class="control-label"></label>
+                    <input asp-for="Patronymic" type="text" class="form-control" />
+                    <span asp-validation-for="Patronymic" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Age" class="control-label"></label>
+                    <input asp-for="Age" type="number" class="form-control" />
+                    <span asp-validation-for="Age" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="DateOfBorn" class="control-label"></label>
+                    <input asp-for="DateOfBorn" type="date" class="form-control" />
+                    <span asp-validation-for="DateOfBorn" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="DateOfEmployment" class="control-label"></label>
+                    <input asp-for="DateOfEmployment" type="date" class="form-control" />
+                    <span asp-validation-for="DateOfEmployment" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Save" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div>
+        <a asp-action="Index">Back to List</a>|
+        <a asp-controller="Employees" asp-action="Delete" asp-route-id="@Model.Id" class="text-danger">delete</a>
+    </div>
+</div>
+
