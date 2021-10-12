@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using WebStore.Models;
+using WebStore.Domain.Models;
 using WebStore.Services.Interfaces;
 using Microsoft.Extensions.Logging;
-using WebStore.ViewModels;
+using WebStore.Domain.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using WebStore.Domain.Entities.Identity;
 

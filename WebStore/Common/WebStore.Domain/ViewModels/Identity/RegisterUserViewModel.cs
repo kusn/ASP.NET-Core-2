@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace WebStore.ViewModels.Identity
+namespace WebStore.Domain.ViewModels.Identity
 {
     public class RegisterUserViewModel
     {
