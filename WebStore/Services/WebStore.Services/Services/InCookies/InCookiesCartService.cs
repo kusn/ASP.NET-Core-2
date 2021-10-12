@@ -1,17 +1,12 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using WebStore.Domain.Entities;
-using WebStore.Infrastructure.Mapping;
 using WebStore.Interfaces.Services;
 using WebStore.Domain.ViewModels;
-using WebStore.Interfaces.Services;
+using WebStore.Services.Mapping;
 
-namespace WebStore.Services.InCookies
+namespace WebStore.Services.Services.InCookies
 {
     public class InCookiesCartService : ICartService
     {
@@ -56,7 +51,7 @@ namespace WebStore.Services.InCookies
 
             _CartName = $"GB.WebStore.Cart{user_name}";
         }
-        
+
         public void Add(int id)
         {
             var cart = Cart;
@@ -103,7 +98,7 @@ namespace WebStore.Services.InCookies
             });
 
             var product_views = products.ToView().ToDictionary(p => p.Id);
-            
+
             return new CartViewModel
             {
                 Items = Cart.Items
