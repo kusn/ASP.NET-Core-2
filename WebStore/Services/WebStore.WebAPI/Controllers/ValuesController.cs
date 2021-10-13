@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace WebStore.WebAPI.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/[controller]")]     //api/values
     [ApiController]
     public class ValuesController : ControllerBase
     {
