@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -7,6 +8,11 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using System;
 using WebStore.DAL.Context;
+using WebStore.Domain.Entities.Identity;
+using WebStore.Interfaces.Services;
+using WebStore.Services.Services.InCookies;
+using WebStore.Services.Services.InMemory;
+using WebStore.Services.Services.InSQL;
 
 namespace WebStore.WebAPI
 {
@@ -35,6 +41,35 @@ namespace WebStore.WebAPI
                 //    services.AddDbContext<WebStoreDB>(opt => opt.UseInMemoryDatabase("WebStoreKUSN.db"));
                 //    break;
             }
+
+            services.AddIdentity<User, Role>(/*opt => { opt.}*/)
+                .AddEntityFrameworkStores<WebStoreDB>()
+                .AddDefaultTokenProviders();
+
+            services.Configure<IdentityOptions>(opt =>
+            {
+#if DEBUG
+                opt.Password.RequireDigit = false;
+                opt.Password.RequireLowercase = false;
+                opt.Password.RequireUppercase = false;
+                opt.Password.RequireNonAlphanumeric = false;
+                opt.Password.RequiredLength = 3;
+                opt.Password.RequiredUniqueChars = 3;
+#endif
+                opt.User.RequireUniqueEmail = false;
+                opt.User.AllowedUserNameCharacters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIGKLMNOPQRSTUVWXYZ1234567890";
+
+                opt.Lockout.AllowedForNewUsers = false;
+                opt.Lockout.MaxFailedAccessAttempts = 10;
+                opt.Lockout.DefaultLockoutTimeSpan = System.TimeSpan.FromMinutes(15);
+
+            });
+
+            services.AddSingleton<IEmployeesData, InMemoryEmployeesData>();
+            //services.AddSingleton<IProductData, InMemoryProductData>();
+            services.AddScoped<IProductData, SqlProductData>();
+            services.AddScoped<ICartService, InCookiesCartService>();
+            services.AddScoped<IOrderService, SqlOrderService>();
 
             services.AddControllers();
             services.AddSwaggerGen(c =>

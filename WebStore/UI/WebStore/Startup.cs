@@ -54,9 +54,6 @@ namespace WebStore
                     break;
             }
 
-            
-            
-
             services.AddIdentity<User, Role>(/*opt => { opt.}*/)
                 .AddEntityFrameworkStores<WebStoreDB>()
                 .AddDefaultTokenProviders();
