@@ -1,9 +1,12 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using System;
+using WebStore.DAL.Context;
 
 namespace WebStore.WebAPI
 {
@@ -11,6 +14,28 @@ namespace WebStore.WebAPI
     {
         public void ConfigureServices(IServiceCollection services)
         {
+            var database_type = Configuration["Database"];
+
+            switch (database_type)
+            {
+                default: throw new InvalidOperationException($"Тип БД {database_type} не поддерживается");
+
+                case "Sqlite":
+                    services.AddDbContext<WebStoreDB>(opt =>
+                        opt.UseSqlite(Configuration.GetConnectionString(database_type),
+                            o => o.MigrationsAssembly("WebStore.DAL.Sqlite")));
+                    break;
+
+                case "SqlServer":
+                    services.AddDbContext<WebStoreDB>(opt =>
+                    opt.UseSqlServer(Configuration.GetConnectionString(database_type)));
+                    break;
+
+                //case "InMemory":
+                //    services.AddDbContext<WebStoreDB>(opt => opt.UseInMemoryDatabase("WebStoreKUSN.db"));
+                //    break;
+            }
+
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
