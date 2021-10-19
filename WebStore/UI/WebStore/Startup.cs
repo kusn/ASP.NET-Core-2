@@ -24,15 +24,8 @@ using WebStore.WebAPI.Clients.Orders;
 
 namespace WebStore
 {
-    public class Startup
-    {
-        public IConfiguration Configuration { get; set; }
-
-        public Startup(IConfiguration Configuration)
-        {
-            this.Configuration = Configuration;
-        }
-                
+    public record Startup(IConfiguration Configuration)
+    {        
         public void ConfigureServices(IServiceCollection services)
         {
             var database_type = Configuration["Database"];
@@ -57,7 +50,7 @@ namespace WebStore
                     break;
             }
 
-            services.AddIdentity<User, Role>(/*opt => { opt.}*/)
+            services.AddIdentity<User, Role>()
                 .AddEntityFrameworkStores<WebStoreDB>()
                 .AddDefaultTokenProviders();
 
