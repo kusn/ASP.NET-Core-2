@@ -1,9 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using WebStore.Interfaces;
 
 namespace WebStore.WebAPI.Controllers.Identity
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route(WebAPIAdresses.Identity.Users)]
     public class UsersApiController : ControllerBase
     {
     }
