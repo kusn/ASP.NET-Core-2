@@ -10,7 +10,7 @@ using WebStore.Interfaces;
 namespace WebStore.WebAPI.Controllers.Identity
 {
     [ApiController]
-    [Route(WebAPIAdresses.Identity.Roles)]
+    [Route(WebAPIAddresses.Identity.Roles)]
     public class RoleApiController : ControllerBase
     {
         private readonly RoleStore<Role> _RoleStore;

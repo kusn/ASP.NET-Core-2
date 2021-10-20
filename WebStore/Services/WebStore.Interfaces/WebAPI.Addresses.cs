@@ -1,6 +1,6 @@
 ﻿namespace WebStore.Interfaces
 {
-    public static class WebAPIAdresses
+    public static class WebAPIAddresses
     {
         public const string Values = "api/values";
         public const string Empolyees = "api/employees";

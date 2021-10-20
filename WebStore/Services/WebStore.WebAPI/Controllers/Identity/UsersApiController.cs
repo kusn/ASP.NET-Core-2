@@ -14,7 +14,7 @@ using WebStore.Interfaces;
 namespace WebStore.WebAPI.Controllers.Identity
 {
     [ApiController]
-    [Route(WebAPIAdresses.Identity.Users)]
+    [Route(WebAPIAddresses.Identity.Users)]
     public class UsersApiController : ControllerBase
     {
         private readonly UserStore<User, Role, WebStoreDB> _UserStore;
