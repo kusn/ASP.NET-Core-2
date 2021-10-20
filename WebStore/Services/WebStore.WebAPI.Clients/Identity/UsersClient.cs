@@ -359,7 +359,7 @@ namespace WebStore.WebAPI.Clients.Identity
         {
             var response = await PostAsync(
                     $"{Address}/SetLockoutEndDate",
-                    new SetLockoutDTO { User = user, LockoutEnd = EndDate },
+                    new SetLockoutDTO { User = user, LockoutEnd = (DateTimeOffset)EndDate },
                     cancel)
                .ConfigureAwait(false);
             user.LockoutEnd = await response
