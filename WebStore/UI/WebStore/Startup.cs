@@ -29,30 +29,7 @@ namespace WebStore
     {        
         public void ConfigureServices(IServiceCollection services)
         {
-            var database_type = Configuration["Database"];
-
-            switch (database_type)
-            {
-                default: throw new InvalidOperationException($"Тип БД {database_type} не поддерживается");
-
-                case "Sqlite":
-                    services.AddDbContext<WebStoreDB>(opt =>
-                        opt.UseSqlite(Configuration.GetConnectionString(database_type),
-                            o => o.MigrationsAssembly("WebStore.DAL.Sqlite")));
-                    break;
-
-                case "SqlServer":
-                    services.AddDbContext<WebStoreDB>(opt =>
-                    opt.UseSqlServer(Configuration.GetConnectionString(database_type)));
-                    break;
-
-                case "InMemory":
-                    services.AddDbContext<WebStoreDB>(opt => opt.UseInMemoryDatabase("WebStoreKUSN.db"));
-                    break;
-            }
-
             services.AddIdentity<User, Role>()
-                //.AddEntityFrameworkStores<WebStoreDB>()
                 .AddDefaultTokenProviders();
 
             services.AddHttpClient("WebStoreWebAPIIdentity", client => client.BaseAddress = new(Configuration["WebAPI"]))
@@ -99,17 +76,8 @@ namespace WebStore
 
                 opt.SlidingExpiration = true;
             });
-
-            services.AddTransient<WebStoreDbInitializer>();
-
-            //services.AddSingleton<IEmployeesData, InMemoryEmployeesData>();
-            //services.AddSingleton<IProductData, InMemoryProductData>();
-            //services.AddScoped<IProductData, SqlProductData>();
+            
             services.AddScoped<ICartService, InCookiesCartService>();
-            //services.AddScoped<IOrderService, SqlOrderService>();
-
-            //services.AddHttpClient<IValuesService, ValuesClient>(client =>
-            //client.BaseAddress = new(Configuration["WebAPI"]));      //Зарегестрировали Http клиент
 
             services.AddHttpClient("WebStoreWebAPI", client =>
             client.BaseAddress = new(Configuration["WebAPI"]))
