@@ -16,6 +16,6 @@ namespace WebStore.Domain.DTO.Identity
     {
         public Claim Claim { get; set; }
 
-        public Claim ReClaim { get; set; }
+        public Claim NewClaim { get; set; }
     }
 }
