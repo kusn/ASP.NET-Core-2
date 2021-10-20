@@ -1,10 +1,11 @@
-﻿using System.Net.Http;
+﻿using System;
+using System.Net.Http;
 using System.Net.Http.Json;
 using System.Threading.Tasks;
 
 namespace WebStore.WebAPI.Clients.Base
 {
-    public abstract class BaseClient
+    public abstract class BaseClient : IDisposable
     {
         protected HttpClient HttpClient { get; }
 
@@ -50,6 +51,26 @@ namespace WebStore.WebAPI.Clients.Base
         {
             var response = await HttpClient.DeleteAsync(url).ConfigureAwait(false);
             return response;
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
+        }
+
+        protected bool _Disposed;
+        protected virtual void Dispose(bool disposing)
+        {
+            if (_Disposed) return;
+            _Disposed = true;
+
+            if (disposing)
+            {
+                // должны освободить управляемые ресурсы
+                //HttpClient.Dispose(); //не мы создавали, не нам и освобождать
+            }
+
+            // должны освободить неуправляемые ресурсы
         }
     }
 }
