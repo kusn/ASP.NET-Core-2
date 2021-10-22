@@ -1,8 +1,8 @@
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Console;
 using System.Threading.Tasks;
-using WebStore.Services.Data;
 
 namespace WebStore
 {
@@ -19,7 +19,16 @@ namespace WebStore
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(host =>host
-                .UseStartup<Startup>()
-                );
+                    .UseStartup<Startup>()
+                    //.ConfigureLogging((host, log) => log
+                    //    .ClearProviders()
+                    //    .AddDebug()
+                    //    .AddConsole(c => c.IncludeScopes = true)
+                    //    .AddEventLog()
+                    //    .AddFilter("Microsoft", LogLevel.Information)
+                    //    .AddFilter<ConsoleLoggerProvider>("Microsoft.EntityFrameworkCore", LogLevel.Warning)
+                    //)
+                )
+            ;
     }
 }
