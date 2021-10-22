@@ -54,7 +54,7 @@ namespace WebStore.WebAPI.Controllers
         /// <param name="employee">Сотрудник</param>
         /// <returns>CreatedAtAction</returns>
         [HttpPost]
-        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(int))]
         public IActionResult Add(Employee employee)
         {
             var id = _EmployeesData.Add(employee);
