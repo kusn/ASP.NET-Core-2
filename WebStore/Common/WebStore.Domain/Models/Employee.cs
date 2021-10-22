@@ -28,6 +28,11 @@ namespace WebStore.Domain.Models
 
         /// <summary>Дата устройства на работу</summary>
         public DateTime DateOfEmployment { get; set; }
+
+        public override string ToString()
+        {
+            return $"[{Id} ]{LastName} {FirstName} {Patronymic} ({Age})";
+        }
     }
 
     //public record Employee2(int Id, string FirstName, string LastName, string Patronymic, int Age);
