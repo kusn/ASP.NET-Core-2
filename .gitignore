@@ -379,3 +379,7 @@ FodyWeavers.xsd
 ***/wwwroot/js/site.min.js
 ***/wwwroot/js/site.min.js.gz
 ***/wwwroot/js/site.min.js.map
+
+WebStore/Services/WebStore.WebAPI/WebStore.WebAPI.xml
+
+WebStore/Common/WebStore.Domain/WebStore.Domain.xml
