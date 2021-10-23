@@ -109,6 +109,8 @@ namespace WebStore
 
             app.UseMiddleware<TestMiddleware>();
 
+            app.UseMiddleware<ExceptionHandlingMiddleware>();
+
             //var loggin = Configuration["Loggin:LogLevel:Default"];
             app.UseEndpoints(endpoints =>
             {                
