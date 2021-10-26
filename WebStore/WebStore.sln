@@ -31,7 +31,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{BB1F3505
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebStore.TestConsole", "WebStore.TestConsole\WebStore.TestConsole.csproj", "{409CF203-C54B-434A-86FB-7E57711CD4DC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebStore.Logger", "Common\WebStore.Logger\WebStore.Logger.csproj", "{E4D5A238-A3D7-4DE5-96A5-0A232203471C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebStore.Logger", "Common\WebStore.Logger\WebStore.Logger.csproj", "{E4D5A238-A3D7-4DE5-96A5-0A232203471C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebStore.Tests", "Tests\WebStore.Tests\WebStore.Tests.csproj", "{4CA50B0E-AB42-4828-9C44-9C902FC53E65}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -79,6 +81,10 @@ Global
 		{E4D5A238-A3D7-4DE5-96A5-0A232203471C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E4D5A238-A3D7-4DE5-96A5-0A232203471C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E4D5A238-A3D7-4DE5-96A5-0A232203471C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4CA50B0E-AB42-4828-9C44-9C902FC53E65}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4CA50B0E-AB42-4828-9C44-9C902FC53E65}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4CA50B0E-AB42-4828-9C44-9C902FC53E65}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4CA50B0E-AB42-4828-9C44-9C902FC53E65}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -94,6 +100,7 @@ Global
 		{AC5B1C3C-19BF-4CE0-BAFE-443185BB0145} = {63C47BAA-57D5-4D0A-8F24-7AEFE8EC3573}
 		{409CF203-C54B-434A-86FB-7E57711CD4DC} = {BB1F3505-6F0F-43F9-8240-4A6A79DB862A}
 		{E4D5A238-A3D7-4DE5-96A5-0A232203471C} = {9B39331B-5086-46BC-ACCD-E2AE37C98D2C}
+		{4CA50B0E-AB42-4828-9C44-9C902FC53E65} = {BB1F3505-6F0F-43F9-8240-4A6A79DB862A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {2CFE565F-4DB6-4656-86D0-89DF4F75EC94}
