@@ -14,8 +14,8 @@ jobs:
       with:
         dotnet-version: 5.0.x    
     - name: Restore dependencies
-      run: webstore/dotnet restore
+      run: ~./webstore/dotnet restore
     - name: Build
-      run: webstore/dotnet build --no-restore
+      run: ~./webstore/dotnet build --no-restore
     - name: Test
-      run: webstore/dotnet test --no-build -v normal
+      run: ~./webstore/dotnet test --no-build -v normal
