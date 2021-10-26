@@ -2,13 +2,11 @@ name: Testing
 
 on:
   push:
-    branches: [ ]
     paths:
-      - 'WebStore/**'
+    - 'WebStore/**'
   pull_request:
-    branches: [ ]
     paths:
-      - 'WebStore/**'
+    - 'WebStore/**'
 
 jobs:
   build:
