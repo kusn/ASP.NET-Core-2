@@ -7,7 +7,7 @@ using Assert = Xunit.Assert;
 namespace WebStore.Tests.Controllers
 {
     [TestClass]
-    public class ContactUsControllerTest
+    public class ContactUsControllerTests
     {
         [TestMethod]
         public void ContactUs_Returns_View()
