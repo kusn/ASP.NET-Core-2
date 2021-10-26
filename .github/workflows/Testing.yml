@@ -14,7 +14,8 @@ jobs:
       with:
         dotnet-version: 5.0.x
     - name: Goto
-    - run: cd WebStore
+    - run: cd..
+    - run: cd /WebStore
     - name: Restore dependencies
       run: dotnet restore
     - name: Build
