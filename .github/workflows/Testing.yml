@@ -13,8 +13,9 @@ jobs:
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 5.0.x
-    - name: Goto
+    - name: Goto up
     - run: cd..
+    - name: Goto /WebStore
     - run: cd /WebStore
     - name: Restore dependencies
       run: dotnet restore
