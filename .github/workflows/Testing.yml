@@ -1,6 +1,14 @@
 name: Testing
 
-on: [push, pull_request]
+on:
+  push:
+    branches: [ ]
+    paths:
+      - 'WebStore/**'
+  pull_request:
+    branches: [ ]
+    paths:
+      - 'WebStore/**'
 
 jobs:
   build:
