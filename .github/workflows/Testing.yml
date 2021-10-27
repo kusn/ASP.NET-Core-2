@@ -2,9 +2,11 @@ name: Testing
 
 on:
   push:
+    branches: [ main ]
     paths:
     - 'WebStore/**'
   pull_request:
+  branches: [ main ]
     paths:
     - 'WebStore/**'
 
@@ -20,8 +22,8 @@ jobs:
       with:
         dotnet-version: 5.0.x    
     - name: Restore dependencies
-      run: ../../webstore/dotnet restore
+      run: dotnet restore
     - name: Build
-      run: ../../webstore/dotnet build --no-restore
+      run: dotnet build --no-restore
     - name: Test
-      run: ../../webstore/dotnet test --no-build -v normal
+      run: dotnet test --no-build -v normal
