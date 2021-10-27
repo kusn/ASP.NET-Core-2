@@ -6,7 +6,7 @@ on:
     paths:
     - 'WebStore/**'
   pull_request:
-  branches: [ main ]
+    branches: [ main ]
     paths:
     - 'WebStore/**'
 
