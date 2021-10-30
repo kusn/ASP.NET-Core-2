@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc.Testing;
+﻿using AngleSharp.Html.Parser;
+using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections;
 using System.Collections.Generic;
@@ -23,6 +24,9 @@ namespace WebStore.WebAPI.Tests
             response.EnsureSuccessStatusCode();
 
             var values = await response.Content.ReadFromJsonAsync<IEnumerable<string>>();
+
+            //var parser = new HtmlParser();
+            //var html = parser.ParseDocument(await response.Content.ReadAsStreamAsync());
         }
         
     }
