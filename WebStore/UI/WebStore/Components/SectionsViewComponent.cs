@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using WebStore.Interfaces.Services;
 using WebStore.Domain.ViewModels;
+using WebStore.ViewModels;
 
 namespace WebStore.Components
 {
@@ -17,6 +18,22 @@ namespace WebStore.Components
 
         public IViewComponentResult Invoke(string SectionId)
         {
+            var section_id = int.TryParse(SectionId, out var id) ? id : (int?)null;
+
+            var sections = GetSections(section_id, out var parent_section_id);
+
+            return View(new SelectableSectionsViewModel
+            {
+                Sections = sections,
+                SectionId = section_id,
+                ParentSectionId = parent_section_id,
+            }); ;
+        }
+
+        private IEnumerable<SectionViewModel> GetSections(int? sectionId, out int? parentSectionId)
+        {
+            parentSectionId = null;
+
             var sections = _ProductData.GetSections();
 
             var parentSections = sections.Where(s => s.ParentId is null);
@@ -35,6 +52,9 @@ namespace WebStore.Components
 
                 foreach (var childSections in childs)
                 {
+                    if (childSections.Id == sectionId)
+                        parentSectionId = childSections.Id;
+
                     parentSection.ChildSections.Add(new SectionViewModel
                     {
                         Id = childSections.Id,
@@ -51,7 +71,7 @@ namespace WebStore.Components
             parentSectionsViews.Sort((a, b) =>
                     Comparer<int>.Default.Compare(a.Order, b.Order));
 
-            return View(parentSectionsViews);
+            return parentSectionsViews;
         }
     }
 }
