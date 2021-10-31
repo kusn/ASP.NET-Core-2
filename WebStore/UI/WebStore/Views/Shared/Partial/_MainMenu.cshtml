@@ -2,9 +2,9 @@
     <ul class="nav navbar-nav collapse navbar-collapse">
         <li><a asp-controller="Home" asp-action="Index" class="active">Home</a></li>
         <li class="dropdown">
-            <a href="#">Магазин<i class="fa fa-angle-down"></i></a>
+            <a ws-is-active-route asp-controller="Catalog" asp-action="Index">Магазин<i class="fa fa-angle-down"></i></a>
             <ul role="menu" class="sub-menu">
-                <li><a asp-controller="Catalog" asp-action="Index">Каталог</a></li>
+                <li><a ws-is-active-route asp-controller="Catalog" asp-action="Index">Каталог</a></li>
                 <li><a asp-controller="ProductDetails" asp-action="Index">О товаре</a></li>
                 <li><a asp-controller="Checkout" asp-action="Index">Оформить заказ</a></li>
                 <li><a asp-controller="Cart" asp-action="Index">Корзина</a></li>
@@ -12,7 +12,7 @@
             </ul>
         </li>
         <li class="dropdown">
-            <a href="#">Блог<i class="fa fa-angle-down"></i></a>
+            <a ws-is-active-route asp-controller="Blog" asp-action="Index">Блог<i class="fa fa-angle-down"></i></a>
             <ul role="menu" class="sub-menu">
                 <li><a asp-controller="Blog" asp-action="Index">Список блогов</a></li>
                 <li><a asp-controller="BlogSingle" asp-action="Index">Блог магазина</a></li>
@@ -20,8 +20,8 @@
         </li>
         @*<li><a asp-controller="NotFound" asp-action="Index">404</a></li>*@
         <li><a ws-is-active-route asp-controller="ContactUs" asp-action="Index">Контакты</a></li>
-        <li><a asp-controller="Employees" asp-action="Index">Сотрудники</a></li>
-        <li><a asp-controller="WebAPI" asp-action="Index" class="@IsActive("WebAPI")">WebAPI</a></li>
+        <li><a ws-is-active-route asp-controller="Employees" asp-action="Index">Сотрудники</a></li>
+        <li><a ws-is-active-route asp-controller="WebAPI" asp-action="Index" class="@IsActive("WebAPI")">WebAPI</a></li>
     </ul>
 </div>
 
