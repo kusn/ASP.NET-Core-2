@@ -17,7 +17,7 @@
 						</a>
 					</h4>
 				</div>
-				<div id="@parentSection.GetHashCode()" class="panel-collapse collapse @(parentSection.Id == Model.SectionId ? "in" : null)">
+				<div id="@parentSection.GetHashCode()" class="panel-collapse collapse @(parentSection.Id == Model.ParentSectionId ? "in" : null)">
 					<div class="panel-body">
 						<ul>
 							@foreach (var childSection in parentSection.ChildSections)
