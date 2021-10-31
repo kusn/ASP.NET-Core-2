@@ -21,7 +21,7 @@ namespace WebStore.Components
             return View();
         }*/
 
-        public IViewComponentResult Invoke()
+        public IViewComponentResult Invoke(string BrandId)
         {
             return View(GetBrands());
         }
