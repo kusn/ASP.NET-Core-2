@@ -19,7 +19,7 @@ namespace WebStore.Controllers
             _Configuration = configuration;
         }
 
-        public IActionResult Index(int? BrandId, int? SectionId, int page = 1, int? pageSize = 0)
+        public IActionResult Index(int? BrandId, int? SectionId, int page = 1, int? pageSize = null)
         {
             var page_size = pageSize
                 ?? (int.TryParse(_Configuration["CatalogPageSize"], out var value) ? value: null);
@@ -29,7 +29,7 @@ namespace WebStore.Controllers
                 BrandId = BrandId,
                 SectionId = SectionId,
                 Page = page,
-                PageSize = pageSize,
+                PageSize = page_size,
             };
                         
             var (products, total_count) = _ProductData.GetProducts(filter);
@@ -38,7 +38,13 @@ namespace WebStore.Controllers
             {
                 BrandId = BrandId,
                 SectionId = SectionId,
-                Products = products.OrderBy(p => p.Order).ToView()
+                Products = products.OrderBy(p => p.Order).ToView(),
+                PageViewModel = new()
+                {
+                    Page = page,
+                    PageSize = page_size ?? 0,
+                    TotalItems = total_count,
+                }
             };
             
             return View(viewModel);
@@ -52,6 +58,6 @@ namespace WebStore.Controllers
                 return NotFound();
 
             return View(product.ToView());
-        }
+        }        
     }
 }
