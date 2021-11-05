@@ -13,16 +13,18 @@
     {
       "library": "font-awesome@4.0.3",
       "destination": "wwwroot/lib/font-awesome/"
+    },
+    {
+      "library": "gmaps.js@0.4.25",
+      "destination": "wwwroot/lib/gmaps.js/"
+    },
+    {
+      "library": "html5shiv@3.6.2pre",
+      "destination": "wwwroot/lib/html5shiv/"
+    },
+    {
+      "library": "jquery-loading-overlay@2.1.7",
+      "destination": "wwwroot/lib/jquery-loading-overlay/"
     }
-  ,
-{
-  "library": "gmaps.js@0.4.25",
-  "destination": "wwwroot/lib/gmaps.js/"
-}
-,
-{
-  "library": "html5shiv@3.6.2pre",
-  "destination": "wwwroot/lib/html5shiv/"
-}
-]
+  ]
 }
