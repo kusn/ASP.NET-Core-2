@@ -4,7 +4,7 @@
     },
 
     init: properties => {
-        $.extend(Catalog._properties, properties;
+        $.extend(Catalog._properties, properties);
 
         $(".pagination li a").click(Catalog.clickOnPage);
     },
