@@ -1,12 +1,10 @@
 ﻿@model WebStore.Domain.ViewModels.Identity.RegisterUserViewModel
-@{
-    ViewData["Title"] = "Register";
-}
+@{ ViewData["Title"] = "Register"; }
 
 <section id="form">
     <!--form-->
     <div class="container">
-        <div class="row">            
+        <div class="row">
             <div class="col-sm-4">
                 <div class="signup-form">
                     <!--sign up form-->
@@ -30,3 +28,8 @@
         </div>
     </div>
 </section><!--/form-->
+
+@section Scripts
+{
+    <partial name="_ValidationScriptsPartial" />
+}
