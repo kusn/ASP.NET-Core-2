@@ -1,26 +1,37 @@
-﻿using Client;
-using System;
-using System.Net.Http;
+﻿using System;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.SignalR.Client;
 
 namespace WebStore.TestConsole
 {
     class Program
-    {        
+    {
         static async Task Main(string[] args)
         {
-            //var client = new HttpClient()
-            //{
-            //    //BaseAddress = new Uri("http://localhost:5001")
-            //};
+            var builder = new HubConnectionBuilder();
+            var connection = builder
+               .WithUrl("http://localhost:5000/chat")
+               .Build();
 
-            //var api = new WebAPIClient("http://localhost:5001", client);
+            using var registration = connection.On<string>("MessageFromClient", OnMessageFromClient);
 
-            //var products = api.ProductsAsync(new ProductFilter());
+            Console.WriteLine("Готов к подключению.");
+            Console.ReadLine();
 
-            //var employee = await api.Employees4Async(2);
+            await connection.StartAsync();
 
-            //Console.ReadKey();
+            Console.WriteLine("Соединение установлено.");
+
+            while (true)
+            {
+                var message = Console.ReadLine();
+                await connection.InvokeAsync("SendMessage", message);
+            }
+        }
+
+        private static void OnMessageFromClient(string Message)
+        {
+            Console.WriteLine("Message from server: {0}", Message);
         }
     }
 }
