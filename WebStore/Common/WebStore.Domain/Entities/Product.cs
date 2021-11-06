@@ -29,5 +29,10 @@ namespace WebStore.Domain.Entities
 
         [Column(TypeName = "decimal(18,2)")]
         public decimal Price { get; set; }
+
+        /// <summary>
+        /// Удален товар или нет
+        /// </summary>
+        public bool IsDelete { get; set; }
     }
 }

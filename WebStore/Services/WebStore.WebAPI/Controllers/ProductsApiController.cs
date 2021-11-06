@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using WebStore.Domain;
+using WebStore.Domain.Dto;
 using WebStore.Domain.DTO;
 using WebStore.Interfaces;
 using WebStore.Interfaces.Services;
@@ -60,5 +61,25 @@ namespace WebStore.WebAPI.Controllers
                 return NotFound();
             return Ok(product.ToDTO());
         }
+
+        [HttpPost("create")]
+        public SaveResult CreateProduct([FromBody] ProductDTO productDto)
+        {
+            var result = _ProductData.CreateProduct(productDto);
+            return result;
+        }
+        [HttpPut]
+        public SaveResult UpdateProduct([FromBody] ProductDTO productDto)
+        {
+            var result = _ProductData.UpdateProduct(productDto);
+            return result;
+        }
+        [HttpDelete("{productId}")]
+        public SaveResult DeleteProduct(int productId)
+        {
+            var result = _ProductData.DeleteProduct(productId);
+            return result;
+        }
+
     }
 }
