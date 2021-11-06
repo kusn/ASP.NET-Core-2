@@ -20,7 +20,7 @@ namespace WebStore.Areas.Admin.Controllers
         {
             var products = _ProductData.GetProducts();
 
-            return View(products);
+            return View(products.Products);
         }
 
         public IActionResult Edit(int id) => RedirectToAction(nameof(Index));

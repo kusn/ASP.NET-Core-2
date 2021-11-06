@@ -19,6 +19,10 @@ using WebStore.WebAPI.Clients.Identity;
 using Microsoft.Extensions.Logging;
 using WebStore.Logger;
 using WebStore.Services.Services;
+using System;
+using Polly;
+using System.Net.Http;
+using Polly.Extensions.Http;
 
 namespace WebStore
 {
@@ -85,7 +89,28 @@ namespace WebStore
                 .AddTypedClient<IValuesService, ValuesClient>()
                 .AddTypedClient<IEmployeesData, EmployeesClient>()
                 .AddTypedClient<IProductData, ProductsClient>()
-                .AddTypedClient<IOrderService, OrdersClient>();
+                .AddTypedClient<IOrderService, OrdersClient>()
+                .SetHandlerLifetime(TimeSpan.FromMinutes(5))    // Создать кеш HttpClient с очисткой его по времени
+                .AddPolicyHandler(GetRetryPolicy())             // Политика повторных запросов в случае если WebAPI не отвечает
+                .AddPolicyHandler(GetCircuitBreakerPolicy());   // Разрушение потенциальных циклических запросов в большой распределённой системе
+
+            static IAsyncPolicy<HttpResponseMessage> GetRetryPolicy(int maxRetryCount = 5, int maxJitterTime = 1000)
+            {
+                var jitter = new Random();
+
+                return HttpPolicyExtensions
+                    .HandleTransientHttpError()
+                    .WaitAndRetryAsync(maxRetryCount, RetryAttempt => 
+                        TimeSpan.FromSeconds(Math.Pow(2, RetryAttempt)) +
+                        TimeSpan.FromMilliseconds(jitter.Next(0, maxJitterTime)));
+            }
+
+            static IAsyncPolicy<HttpResponseMessage> GetCircuitBreakerPolicy()
+            {
+                return HttpPolicyExtensions
+                    .HandleTransientHttpError()
+                    .CircuitBreakerAsync(handledEventsAllowedBeforeBreaking: 5, TimeSpan.FromSeconds(30));
+            }
 
             services.AddControllersWithViews(opt => opt.Conventions.Add(new TestControllerConvention()))
                 .AddRazorRuntimeCompilation();
