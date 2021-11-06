@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.Linq;
 using WebStore.DAL.Context;
 using WebStore.Domain;
+using WebStore.Domain.Dto;
+using WebStore.Domain.DTO;
 using WebStore.Domain.Entities;
 using WebStore.Interfaces.Services;
 
@@ -29,7 +31,9 @@ namespace WebStore.Services.Services.InSQL
         {
             IQueryable<Product> query = _db.Products
                 .Include(p => p.Brand)
-                .Include(p => p.Section);
+                .Include(p => p.Section)
+                .Where(c => !c.IsDelete)
+                .AsQueryable();
 
             if (Filter?.Ids?.Length > 0)
             {
@@ -66,5 +70,133 @@ namespace WebStore.Services.Services.InSQL
         }
 
         public Section GetSectionById(int id) => _db.Sections.SingleOrDefault(s => s.Id == id);
+
+        public SaveResult CreateProduct(ProductDTO productDTO)
+        {
+            try
+            {
+                var product = new Product()
+                {
+                    BrandId = productDTO.Brand.Id,
+                    SectionId = productDTO.Section.Id,
+                    Name = productDTO.Name,
+                    ImageUrl = productDTO.ImageUrl,
+                    Order = productDTO.Order,
+                    Price = productDTO.Price
+                };
+                _db.Products.Add(product);
+                _db.SaveChanges();
+                return new SaveResult
+                {
+                    IsSuccess = true
+                };
+            }
+            catch (DbUpdateConcurrencyException ex)
+            {
+                return new SaveResult
+                {
+                    IsSuccess = false,
+                    Errors = new List<string>()
+                    {
+                        ex.Message
+                    }
+                };
+            }
+            catch (DbUpdateException ex)
+            {
+                return new SaveResult
+            
+            {
+                    IsSuccess = false,
+                    Errors = new List<string>()
+                    {
+                        ex.Message
+                    }
+            };
+            }
+            catch (Exception e)
+            {
+                return new SaveResult
+                {
+                    IsSuccess = false,
+                    Errors = new List<string>()
+                    {
+                        e.Message
+                    }
+                };
+            }
+        }
+
+        public SaveResult UpdateProduct(ProductDTO productDTO)
+        {
+            var product = _db.Products.FirstOrDefault();
+            if (product == null)
+            {
+                return new SaveResult()
+                {
+                    IsSuccess = false,
+                    Errors = new List<string>() { "Entity not exist" }
+                };
+            }
+            product.BrandId = productDTO.Brand.Id;
+            product.SectionId = productDTO.Section.Id;
+            product.ImageUrl = productDTO.ImageUrl;
+            product.Order = productDTO.Order;
+            product.Price = productDTO.Price;
+            product.Name = productDTO.Name;
+            try
+            {
+                _db.SaveChanges();
+                return new SaveResult
+                {
+                    IsSuccess = true
+                };
+            }
+            catch (Exception e)
+            {
+                return new SaveResult
+                {
+                    IsSuccess = false,
+                    Errors = new List<string>()
+                    {
+                        e.Message
+                    }
+                };
+            }
+        }
+
+        public SaveResult DeleteProduct(int productId)
+        {
+            var product = _db.Products.FirstOrDefault();
+            if (product == null)
+            {
+                return new SaveResult()
+                {
+                    IsSuccess = false,
+                    Errors = new List<string>() { "Entity not exist" }
+                };
+            }
+            try
+            {
+                //_db.Remove(product);
+                product.IsDelete = true;
+                _db.SaveChanges();
+                return new SaveResult()
+                {
+                    IsSuccess = true
+                };
+            }
+            catch (Exception e)
+            {
+                return new SaveResult
+                {
+                    IsSuccess = false,
+                    Errors = new List<string>()
+                    {
+                        e.Message
+                    }
+                };
+            }
+        }
     }
 }
