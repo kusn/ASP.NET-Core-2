@@ -31,7 +31,9 @@ namespace WebStore.Services.Services.InSQL
         {
             IQueryable<Product> query = _db.Products
                 .Include(p => p.Brand)
-                .Include(p => p.Section);
+                .Include(p => p.Section)
+                .Where(c => !c.IsDelete)
+                .AsQueryable();
 
             if (Filter?.Ids?.Length > 0)
             {
@@ -176,7 +178,8 @@ namespace WebStore.Services.Services.InSQL
             }
             try
             {
-                _db.Remove(product);
+                //_db.Remove(product);
+                product.IsDelete = true;
                 _db.SaveChanges();
                 return new SaveResult()
                 {
