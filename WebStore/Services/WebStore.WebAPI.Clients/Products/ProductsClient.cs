@@ -2,6 +2,7 @@
 using System.Net.Http;
 using System.Net.Http.Json;
 using WebStore.Domain;
+using WebStore.Domain.Dto;
 using WebStore.Domain.DTO;
 using WebStore.Domain.Entities;
 using WebStore.Interfaces;
@@ -52,6 +53,32 @@ namespace WebStore.WebAPI.Clients.Products
         {
             var sections = Get<IEnumerable<SectionDTO>>($"{Address}/sections");
             return sections.FromDTO();
+        }
+
+        public SaveResult CreateProduct(ProductDTO productDTO)
+        {
+            var url = $"{Address}/create";
+            var response = Post(url, productDTO);
+            var result = response.Content.ReadFromJsonAsync<SaveResult>().Result;
+            return result;
+
+        }
+
+        public SaveResult UpdateProduct(ProductDTO productDTO)
+        {
+            var url = $"{Address}";
+            var response = Put(url, productDTO);
+            var result = response.Content.ReadFromJsonAsync<SaveResult>().Result;
+            return result;
+
+        }
+
+        public SaveResult DeleteProduct(int productId)
+        {
+            var url = $"{Address}/{productId}";
+            var response = DeleteAsync(url).Result;
+            var result = response.Content.ReadFromJsonAsync<SaveResult>().Result;
+            return result;
         }
     }
 }
