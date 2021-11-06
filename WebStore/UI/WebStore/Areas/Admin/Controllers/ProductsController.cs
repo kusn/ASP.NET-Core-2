@@ -32,7 +32,9 @@ namespace WebStore.Areas.Admin.Controllers
         {
             var notParentSections = _ProductData.GetSections().Where(s =>
             s.ParentId != null);
+
             var brands = _ProductData.GetBrands();
+
             if (!id.HasValue)
             {
                 return View(new ProductViewModel()
@@ -41,6 +43,7 @@ namespace WebStore.Areas.Admin.Controllers
                     Brands = new SelectList(brands, "Id", "Name")
                 });
             }
+
             var product = _ProductData.GetProductById(id.Value);
             if (product == null)
                 return NotFound();
@@ -66,7 +69,9 @@ namespace WebStore.Areas.Admin.Controllers
         {
             var notParentSections = _ProductData.GetSections().Where(s =>
             s.ParentId != null);
+
             var brands = _ProductData.GetBrands();
+
             if (ModelState.IsValid)
             {
                 var productDTO = new ProductDTO()
@@ -103,6 +108,14 @@ namespace WebStore.Areas.Admin.Controllers
             return View(model);
         }
 
-        public IActionResult Delete(int id) => RedirectToAction(nameof(Index));
+        public IActionResult Delete(int id)
+        {
+            var result = _ProductData.DeleteProduct(id);
+
+            if (!result.IsSuccess)
+                return RedirectToAction(nameof(Index));
+
+            return RedirectToAction(nameof(Index));
+        }
     }
 }
