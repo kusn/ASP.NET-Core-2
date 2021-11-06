@@ -7,6 +7,8 @@ using Moq;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
+using WebStore.Domain.ViewModels;
+using WebStore.Interfaces.Services;
 using WebStore.Interfaces.TestAPI;
 
 using Assert = Xunit.Assert;
@@ -25,14 +27,18 @@ namespace WebStore.WebAPI.Tests.Controllers
         {
             var values_service_mock = new Mock<IValuesService>();
             values_service_mock.Setup(s => s.GetAll()).Returns(_ExpectedValues);
+
+            var cart_service_mock = new Mock<ICartService>();
+            cart_service_mock.Setup(c => c.GetViewModel()).Returns(() => new CartViewModel { Items = Enumerable.Empty<(ProductViewModel, int)>() });
             
             _Host = new WebApplicationFactory<Startup>()
                 .WithWebHostBuilder(host => host
                     .ConfigureServices(services => services
-                        .AddSingleton(values_service_mock.Object)));
+                        .AddSingleton(values_service_mock.Object)
+                        .AddSingleton(cart_service_mock.Object)));
         }
 
-        [TestMethod, Ignore]
+        [TestMethod]
         public async Task GetValues()
         {
             var client = _Host.CreateClient();
