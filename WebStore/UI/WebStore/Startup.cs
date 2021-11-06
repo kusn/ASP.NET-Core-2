@@ -23,6 +23,7 @@ using System;
 using Polly;
 using System.Net.Http;
 using Polly.Extensions.Http;
+using WebStore.Hubs;
 
 namespace WebStore
 {
@@ -114,6 +115,8 @@ namespace WebStore
 
             services.AddControllersWithViews(opt => opt.Conventions.Add(new TestControllerConvention()))
                 .AddRazorRuntimeCompilation();
+
+            services.AddSignalR();
         }
                 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerFactory log)
@@ -141,7 +144,9 @@ namespace WebStore
 
             //var loggin = Configuration["Loggin:LogLevel:Default"];
             app.UseEndpoints(endpoints =>
-            {                
+            {
+                endpoints.MapHub<ChatHub>("/chat");
+
                 endpoints.MapGet("/greetings", async context =>
                 {
                     var greetings = Configuration["Greetings"];

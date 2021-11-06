@@ -46,5 +46,10 @@ namespace WebStore.Controllers
                 Message = msg,
             });
         }
+
+        public IActionResult Chat()
+        {
+            return View();
+        }
     }
 }
