@@ -16,7 +16,7 @@
     }
   ,
 {
-  "library": "gmaps.js@0.4.9",
+  "library": "gmaps.js@0.4.19",
   "destination": "wwwroot/lib/gmaps.js/"
 }
 ,
